@@ -1,0 +1,355 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+  .pf-root { font-family: 'Outfit', 'Noto Sans JP', sans-serif; padding: 0; }
+
+  .pf-hero {
+    padding: 3rem 2rem 2.5rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .pf-avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: #E6F1FB;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 500; color: #185FA5;
+    flex-shrink: 0;
+    border: 0.5px solid #B5D4F4;
+  }
+  .pf-name { font-size: 28px; font-weight: 600; color: var(--color-text-primary); letter-spacing: -0.5px; margin: 0 0 4px; }
+  .pf-tagline { font-size: 13px; color: var(--color-text-secondary); font-weight: 400; margin: 0 0 14px; letter-spacing: 0.3px; }
+  .pf-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge {
+    font-size: 12px; padding: 4px 12px; border-radius: 99px;
+    border: 0.5px solid var(--color-border-secondary);
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+  }
+
+  .pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .pf-grid > * { border-right: 0.5px solid var(--color-border-tertiary); border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .pf-grid > *:nth-child(even) { border-right: none; }
+
+  .pf-section { padding: 1.75rem 2rem; }
+  .pf-section-full { padding: 1.75rem 2rem; border-bottom: 0.5px solid var(--color-border-tertiary); }
+
+  .sec-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .sec-body { font-size: 13.5px; color: var(--color-text-secondary); line-height: 1.75; margin: 0; }
+
+  .time-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .time-row:last-child { border-bottom: none; }
+  .time-day { font-size: 12px; color: var(--color-text-tertiary); }
+  .time-hours { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .time-range { font-size: 12px; color: var(--color-text-secondary); }
+
+  .stat-num { font-size: 32px; font-weight: 600; color: var(--color-text-primary); letter-spacing: -1px; line-height: 1; }
+  .stat-unit { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; }
+
+  .link-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--color-border-tertiary); text-decoration: none; }
+  .link-row:last-child { border-bottom: none; }
+  .link-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .link-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+  .link-handle { font-size: 12px; color: var(--color-text-tertiary); }
+  .link-arrow { font-size: 12px; color: var(--color-text-tertiary); }
+
+  .media-title { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); margin: 0 0 8px; letter-spacing: 0.2px; }
+
+  .embed-card {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    background: var(--color-background-secondary);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .embed-card:hover { border-color: var(--color-border-secondary); }
+  .embed-thumb {
+    width: 100%; aspect-ratio: 16/9;
+    background: var(--color-background-tertiary);
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    position: relative; overflow: hidden;
+  }
+  .embed-thumb-inner { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .play-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .embed-label { font-size: 11px; color: var(--color-text-tertiary); }
+  .embed-meta { padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .embed-type { font-size: 11px; color: var(--color-text-tertiary); }
+  .embed-link { font-size: 11px; color: #185FA5; text-decoration: none; }
+
+  .contact-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+  .contact-key { font-size: 12px; color: var(--color-text-tertiary); min-width: 60px; }
+  .contact-val { font-size: 13px; color: var(--color-text-primary); }
+  .contact-val a { color: #185FA5; text-decoration: none; }
+
+  .url-input-wrap { display: flex; gap: 8px; margin-bottom: 10px; }
+  .url-input-wrap input { flex: 1; font-size: 12px; padding: 6px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); }
+  .url-input-wrap button { font-size: 12px; padding: 6px 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); cursor: pointer; }
+  .url-input-wrap button:hover { background: var(--color-background-tertiary); }
+</style>
+
+<div class="pf-root">
+
+  <div class="pf-hero">
+    <div class="pf-avatar">OT</div>
+    <div>
+      <p class="pf-name">小澤 匠</p>
+      <p class="pf-tagline">バナー制作 / 動画編集 / SNS運用 ・ クリエイティブディレクター</p>
+      <div class="pf-badges">
+        <span class="badge">バナー制作</span>
+        <span class="badge">動画編集</span>
+        <span class="badge">Meta広告</span>
+        <span class="badge">SNS運用</span>
+        <span class="badge">台本作成</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf-section-full">
+    <p class="sec-label">About</p>
+    <p class="sec-body">Instagram・TikTokにて音楽・恋愛・副業など幅広いジャンルで発信し、最高30万再生を達成。企画設計・台本作成・動画編集・投稿後の分析まで一貫して担当。現在はバナー制作・動画編集に特化し、CTRを高めるファーストビューのインパクト・訴求設計・視線誘導まで細かく設計した、成果につながるクリエイティブ制作を行っています。</p>
+  </div>
+
+  <div class="pf-grid">
+    <div class="pf-section">
+      <p class="sec-label">稼働時間</p>
+      <div class="time-row">
+        <span class="time-day">平日（月〜金）</span>
+        <span class="time-hours">4h</span>
+        <span class="time-range">20:00 〜 0:00</span>
+      </div>
+      <div class="time-row">
+        <span class="time-day">土日祝</span>
+        <span class="time-hours">8h</span>
+        <span class="time-range">9:00 〜 17:00</span>
+      </div>
+      <p style="font-size: 11px; color: var(--color-text-tertiary); margin: 12px 0 0;">返信：基本12時間以内 / 稼働時間中は即レス</p>
+    </div>
+
+    <div class="pf-section">
+      <p class="sec-label">実績</p>
+      <div class="stat-num">300,000</div>
+      <div class="stat-unit">最高再生数（Instagram / TikTok）</div>
+    </div>
+  </div>
+
+  <div class="pf-section-full">
+    <p class="sec-label">発信アカウント</p>
+    <a class="link-row" href="https://www.instagram.com/haku_renai" target="_blank">
+      <div class="link-icon">IG</div>
+      <span class="link-name">Instagram</span>
+      <span class="link-handle">@haku_renai</span>
+      <span class="link-arrow">↗</span>
+    </a>
+    <a class="link-row" href="https://www.tiktok.com/@piano_hoikushi" target="_blank">
+      <div class="link-icon">TT</div>
+      <span class="link-name">TikTok</span>
+      <span class="link-handle">@piano_hoikushi</span>
+      <span class="link-arrow">↗</span>
+    </a>
+  </div>
+
+  <div class="pf-section-full" id="works-section">
+    <p class="sec-label">作品・実績</p>
+    <p style="font-size: 11px; color: var(--color-text-tertiary); margin: 0 0 14px;">画像・動画のURLを貼り付けてサムネを追加できます</p>
+
+    <div class="url-input-wrap">
+      <input type="text" id="url-input" placeholder="YouTube / 画像URLを貼り付け..." />
+      <input type="text" id="title-input" placeholder="タイトル" style="max-width:160px;" />
+      <button onclick="addEmbed()">追加</button>
+    </div>
+
+    <div id="embed-list">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div>
+          <p class="media-title">Meta広告 ブランド集客バナー</p>
+          <div class="embed-card">
+            <div class="embed-thumb">
+              <div class="embed-thumb-inner">
+                <div class="play-btn">▶</div>
+                <span class="embed-label">バナー</span>
+              </div>
+            </div>
+            <div class="embed-meta">
+              <span class="embed-type">Banner</span>
+              <span style="font-size:11px;color:var(--color-text-tertiary);">URLを追加</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="media-title">Meta広告 SNSスクール集客バナー</p>
+          <div class="embed-card">
+            <div class="embed-thumb">
+              <div class="embed-thumb-inner">
+                <div class="play-btn">▶</div>
+                <span class="embed-label">バナー</span>
+              </div>
+            </div>
+            <div class="embed-meta">
+              <span class="embed-type">Banner</span>
+              <span style="font-size:11px;color:var(--color-text-tertiary);">URLを追加</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="media-title">Meta広告 SNSスクール集客動画</p>
+          <div class="embed-card">
+            <div class="embed-thumb">
+              <div class="embed-thumb-inner">
+                <div class="play-btn">▶</div>
+                <span class="embed-label">動画</span>
+              </div>
+            </div>
+            <div class="embed-meta">
+              <span class="embed-type">Video</span>
+              <span style="font-size:11px;color:var(--color-text-tertiary);">URLを追加</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="media-title">Meta広告 ブランド集客動画</p>
+          <div class="embed-card">
+            <div class="embed-thumb">
+              <div class="embed-thumb-inner">
+                <div class="play-btn">▶</div>
+                <span class="embed-label">動画</span>
+              </div>
+            </div>
+            <div class="embed-meta">
+              <span class="embed-type">Video</span>
+              <span style="font-size:11px;color:var(--color-text-tertiary);">URLを追加</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="media-title">TikTok ピアノ教育動画</p>
+          <div class="embed-card">
+            <div class="embed-thumb">
+              <div class="embed-thumb-inner">
+                <div class="play-btn">▶</div>
+                <span class="embed-label">TikTok</span>
+              </div>
+            </div>
+            <div class="embed-meta">
+              <span class="embed-type">Video</span>
+              <span style="font-size:11px;color:var(--color-text-tertiary);">URLを追加</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="media-title">Instagram 恋愛発信</p>
+          <div class="embed-card">
+            <div class="embed-thumb">
+              <div class="embed-thumb-inner">
+                <div class="play-btn">▶</div>
+                <span class="embed-label">Instagram</span>
+              </div>
+            </div>
+            <div class="embed-meta">
+              <span class="embed-type">Post</span>
+              <span style="font-size:11px;color:var(--color-text-tertiary);">URLを追加</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="added-embeds" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <div class="pf-section-full">
+    <p class="sec-label">連絡先</p>
+    <div class="contact-row">
+      <span class="contact-key">Mail</span>
+      <span class="contact-val"><a href="mailto:piano.hoikushi08@gmail.com">piano.hoikushi08@gmail.com</a></span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-key">返信</span>
+      <span class="contact-val">基本12時間以内（稼働時間中は即レス）</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function getYouTubeId(url) {
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\/\s]{11})/);
+  return m ? m[1] : null;
+}
+
+function addEmbed() {
+  const url = document.getElementById('url-input').value.trim();
+  const title = document.getElementById('title-input').value.trim() || 'コンテンツ';
+  if (!url) return;
+
+  const ytId = getYouTubeId(url);
+  const isImage = /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url);
+  const container = document.getElementById('added-embeds');
+
+  const div = document.createElement('div');
+
+  if (ytId) {
+    div.innerHTML = `
+      <p class="media-title">${title}</p>
+      <div class="embed-card">
+        <div class="embed-thumb" style="cursor:pointer;" onclick="this.innerHTML='<iframe width=100% height=100% src=https://www.youtube.com/embed/${ytId}?autoplay=1 frameborder=0 allowfullscreen style=border:none></iframe>';this.style.aspectRatio='16/9'">
+          <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" onerror="this.style.display='none'">
+          <div class="embed-thumb-inner" style="position:relative;z-index:1;">
+            <div class="play-btn">▶</div>
+            <span class="embed-label">クリックで再生</span>
+          </div>
+        </div>
+        <div class="embed-meta">
+          <span class="embed-type">YouTube</span>
+          <a href="${url}" target="_blank" class="embed-link">開く ↗</a>
+        </div>
+      </div>`;
+    div.querySelector('.embed-thumb').style.position = 'relative';
+  } else if (isImage) {
+    div.innerHTML = `
+      <p class="media-title">${title}</p>
+      <div class="embed-card">
+        <div class="embed-thumb" style="padding:0;">
+          <img src="${url}" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div class="embed-meta">
+          <span class="embed-type">画像</span>
+          <a href="${url}" target="_blank" class="embed-link">開く ↗</a>
+        </div>
+      </div>`;
+  } else {
+    div.innerHTML = `
+      <p class="media-title">${title}</p>
+      <div class="embed-card">
+        <div class="embed-thumb">
+          <div class="embed-thumb-inner">
+            <div class="play-btn">▶</div>
+            <span class="embed-label">リンク</span>
+          </div>
+        </div>
+        <div class="embed-meta">
+          <span class="embed-type">Link</span>
+          <a href="${url}" target="_blank" class="embed-link">開く ↗</a>
+        </div>
+      </div>`;
+  }
+
+  container.appendChild(div);
+  document.getElementById('url-input').value = '';
+  document.getElementById('title-input').value = '';
+}
+</script>
